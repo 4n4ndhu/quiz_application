@@ -12,6 +12,7 @@ class QuestionScreen extends StatefulWidget {
 }
 
 class _QuestionScreenState extends State<QuestionScreen> {
+  int rightAnswerCount = 0;
   dynamic currentIndex = 0;
   int length = DummyDb.questionLis.length;
   int? selectedAnswerIndex;
@@ -62,6 +63,12 @@ class _QuestionScreenState extends State<QuestionScreen> {
                       setState(() {});
                       print(selectedAnswerIndex);
                     }
+
+                    if (DummyDb.questionLis[currentIndex]["answerindex"] ==
+                        selectedAnswerIndex) {
+                      rightAnswerCount++;
+                      print(rightAnswerCount);
+                    }
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(horizontal: 20),
@@ -106,7 +113,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) => ResultScreen(
-                            answercount: 10,
+                            answercount: rightAnswerCount,
                           ),
                         ));
                   }

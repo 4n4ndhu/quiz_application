@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:quiz_application/dummy_db.dart';
 import 'package:quiz_application/utils/cont/color_constants.dart';
-import 'package:quiz_application/view/category_screen/category_screen.dart';
-
+import 'package:quiz_application/view/question%20_screen/question_screen.dart';
 
 class ResultScreen extends StatefulWidget {
   final int answercount;
@@ -16,17 +15,17 @@ class _ResultScreenState extends State<ResultScreen> {
   calculatePercentage() {
     var percentage = (widget.answercount / DummyDb.questionLis.length) * 100;
     if (percentage >= 80) {
-      starcount = 2;
+      starcount = 3;
     } else if (percentage >= 50) {
-      starcount = 1;
+      starcount = 2;
     } else if (percentage >= 30) {
-      starcount = 0;
+      starcount = 1;
     } else {
-      starcount = null;
+      starcount = 0;
     }
   }
 
-  var starcount = null;
+  var starcount = 0;
   @override
   void initState() {
     calculatePercentage();
@@ -54,7 +53,7 @@ class _ResultScreenState extends State<ResultScreen> {
                     ),
                     child: Icon(Icons.star,
                         size: index == 1 ? 80 : 50,
-                        color: index <= starcount
+                        color: index < starcount
                             ? ColorConstants.starColor
                             : Colors.grey),
                   ),
@@ -76,41 +75,50 @@ class _ResultScreenState extends State<ResultScreen> {
               height: 10,
             ),
             Text(
-              "6 / 13",
+              "${widget.answercount} / ${DummyDb.questionLis.length}",
               style: TextStyle(
                   color: ColorConstants.starColor,
                   fontSize: 25,
                   fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 20),
-            Container(
-              height: 50,
-              width: double.infinity,
-              decoration: BoxDecoration(
-                  color: ColorConstants.primarywhite,
-                  borderRadius: BorderRadius.circular(15)),
-              child: Center(
-                  child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  CircleAvatar(
-                    backgroundColor: ColorConstants.primaryblack,
-                    radius: 15,
-                    child: Icon(
-                      Icons.replay,
-                      color: ColorConstants.primarywhite,
+            InkWell(
+              onTap: () {
+                Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => QuestionScreen(),
+                    ));
+              },
+              child: Container(
+                height: 50,
+                width: double.infinity,
+                decoration: BoxDecoration(
+                    color: ColorConstants.primarywhite,
+                    borderRadius: BorderRadius.circular(15)),
+                child: Center(
+                    child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: ColorConstants.primaryblack,
+                      radius: 15,
+                      child: Icon(
+                        Icons.replay,
+                        color: ColorConstants.primarywhite,
+                      ),
                     ),
-                  ),
-                  SizedBox(width: 10),
-                  Text(
-                    "Retry",
-                    style: TextStyle(
-                        color: ColorConstants.primaryblack,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18),
-                  )
-                ],
-              )),
+                    SizedBox(width: 10),
+                    Text(
+                      "Retry",
+                      style: TextStyle(
+                          color: ColorConstants.primaryblack,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18),
+                    )
+                  ],
+                )),
+              ),
             )
           ],
         ),
