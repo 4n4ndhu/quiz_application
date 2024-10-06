@@ -24,7 +24,7 @@ class _QuestionScreenState extends State<QuestionScreen> {
         backgroundColor: ColorConstants.primaryblack,
         actions: [
           Text(
-            "$currentQuestion / $length",
+            "${currentIndex + 1} / $length",
             style: TextStyle(color: ColorConstants.primarywhite),
           )
         ],
@@ -89,7 +89,6 @@ class _QuestionScreenState extends State<QuestionScreen> {
                 setState(() {});
                 if (currentIndex < length - 1) {
                   currentIndex++;
-                  currentQuestion++;
                 } else {
                   Navigator.pushReplacement(
                       context,
