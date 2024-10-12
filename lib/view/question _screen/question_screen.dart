@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
 import 'package:quiz_application/dummy_db.dart';
-
-import 'package:quiz_application/utils/cont/color_constants.dart';
+import 'package:quiz_application/utils/animations_constants.dart';
+import 'package:quiz_application/utils/color_constants.dart';
 import 'package:quiz_application/view/result_screen/result_screen.dart';
 
 class QuestionScreen extends StatefulWidget {
@@ -35,15 +36,22 @@ class _QuestionScreenState extends State<QuestionScreen> {
           children: [
             Expanded(
               child: Container(
-                child: Center(
-                  child: Text(
-                    textAlign: TextAlign.center,
-                    DummyDb.questionLis[currentIndex]["question"],
-                    style: TextStyle(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18,
-                        color: ColorConstants.primarywhite),
-                  ),
+                child: Stack(
+                  children: [
+                    Center(
+                      child: Text(
+                        textAlign: TextAlign.center,
+                        DummyDb.questionLis[currentIndex]["question"],
+                        style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18,
+                            color: ColorConstants.primarywhite),
+                      ),
+                    ),
+                    if (selectedAnswerIndex ==
+                        DummyDb.questionLis[currentIndex]["answerindex"])
+                      Lottie.asset(AnimationsConstants.rightansAnimation)
+                  ],
                 ),
                 decoration: BoxDecoration(
                     color: ColorConstants.primaryColor,
